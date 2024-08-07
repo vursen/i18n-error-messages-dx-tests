@@ -29,12 +29,6 @@ public class ApplicationForm extends FormLayout {
         fullNameField.setMinLength(2);
         fields.add(fullNameField);
 
-        Select<String> genderField = new Select<>();
-        genderField.setLabel("Gender");
-        genderField.setItems("Male", "Female", "Other");
-        genderField.setRequiredIndicatorVisible(true);
-        fields.add(genderField);
-
         DatePicker birthDateField = new DatePicker("Date of birth");
         birthDateField.setRequiredIndicatorVisible(true);
         birthDateField.setMax(LocalDate.now());
@@ -53,33 +47,25 @@ public class ApplicationForm extends FormLayout {
         phoneField.setHelperText("Format: 123456789 (9 digits, no spaces or dashes)");
         fields.add(phoneField);
 
-        Checkbox acceptTermsField = new Checkbox("I accept the terms and conditions");
-        acceptTermsField.getStyle().set("padding-top", "var(--lumo-space-s)");
-        acceptTermsField.setRequiredIndicatorVisible(true);
-        fields.add(acceptTermsField);
+        Checkbox agreementField = new Checkbox("I agree to the terms and conditions");
+        agreementField.getStyle().set("padding-top", "var(--lumo-space-s)");
+        agreementField.setRequiredIndicatorVisible(true);
+        fields.add(agreementField);
 
         Button submitButton = new Button("Submit", this::onSubmitClick);
         submitButton.getStyle().set("margin-top", "var(--lumo-space-m)");
 
-        add(fullNameField, genderField, birthDateField, emailField, phoneField,
-                acceptTermsField, submitButton);
+        add(fullNameField, birthDateField, emailField, phoneField,
+                agreementField, submitButton);
     }
 
     private void onSubmitClick(ClickEvent<Button> event) {
-        boolean isInvalid = fields.stream().anyMatch((field) -> {
-            return field.isInvalid();
-        });
-        boolean isRequired = fields.stream().anyMatch((field) -> {
-            HasValue<?, ?> fieldAsHasValue = (HasValue<?, ?>) field;
-            return fieldAsHasValue.isRequiredIndicatorVisible() && fieldAsHasValue.isEmpty();
-        });
-
         Notification notification = new Notification();
         notification.setPosition(Notification.Position.TOP_CENTER);
-        if (isInvalid) {
+        if (hasInvalidFields()) {
             notification.setText("Please address the errors in the form.");
             notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
-        } else if (isRequired) {
+        } else if (hasEmptyRequiredFields()) {
             notification.setText("Please fill in all required fields.");
             notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
         } else {
@@ -87,5 +73,16 @@ public class ApplicationForm extends FormLayout {
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
         }
         notification.open();
+    }
+
+    private boolean hasInvalidFields() {
+        return fields.stream().anyMatch((field) -> field.isInvalid());
+    }
+
+    private boolean hasEmptyRequiredFields() {
+        return fields.stream().anyMatch((field) -> {
+            HasValue<?, ?> fieldAsHasValue = (HasValue<?, ?>) field;
+            return fieldAsHasValue.isRequiredIndicatorVisible() && fieldAsHasValue.isEmpty();
+        });
     }
 }
