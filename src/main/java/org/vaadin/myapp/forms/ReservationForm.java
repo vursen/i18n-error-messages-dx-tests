@@ -23,8 +23,8 @@ public class ReservationForm extends FormLayout {
         IntegerField numberOfGuestsField = new IntegerField("Number of guests");
         binder.forField(numberOfGuestsField).bind("numberOfGuests");
 
-        TimePicker bookingTimeField = new TimePicker("Booking time");
-        binder.forField(bookingTimeField).bind("bookingTime");
+        TimePicker reservationTimeField = new TimePicker("Reservation time");
+        binder.forField(reservationTimeField).bind("reservationTime");
 
         Checkbox agreeField = new Checkbox("I agree to the terms and conditions");
         agreeField.getStyle().set("padding-top", "var(--lumo-space-s)");
@@ -33,14 +33,14 @@ public class ReservationForm extends FormLayout {
         Button subscribeButton = new Button("Subscribe", this::onSubscribeClick);
         subscribeButton.getStyle().set("margin-top", "var(--lumo-space-m)");
 
-        add(emailField, numberOfGuestsField, agreeField, subscribeButton);
+        add(emailField, numberOfGuestsField, reservationTimeField, agreeField, subscribeButton);
     }
 
     private void onSubscribeClick(ClickEvent<Button> event) {
         if (binder.validate().isOk()) {
             Notification notification = new Notification();
             notification.setPosition(Notification.Position.TOP_CENTER);
-            notification.setText("You have successfully booked a table");
+            notification.setText("You have successfully reserved a table");
             notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
             notification.open();
         }

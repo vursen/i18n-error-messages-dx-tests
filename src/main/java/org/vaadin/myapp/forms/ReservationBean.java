@@ -5,7 +5,7 @@ import java.time.LocalTime;
 public class ReservationBean {
     public String email;
     public int numberOfGuests;
-    public LocalTime bookingTime;
+    public LocalTime reservationTime;
     public boolean agreed;
 
     public ReservationBean() {
@@ -27,12 +27,12 @@ public class ReservationBean {
         return numberOfGuests;
     }
 
-    public void setBookingTime(LocalTime bookingTime) {
-        this.bookingTime = bookingTime;
+    public void setReservationTime(LocalTime reservationTime) {
+        this.reservationTime = reservationTime;
     }
 
-    public LocalTime getBookingTime() {
-        return bookingTime;
+    public LocalTime getReservationTime() {
+        return reservationTime;
     }
 
     public void setAgreed(boolean agreed) {
