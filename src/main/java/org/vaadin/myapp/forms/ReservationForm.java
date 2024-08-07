@@ -1,5 +1,7 @@
 package org.vaadin.myapp.forms;
 
+import org.vaadin.myapp.data.ReservationBean;
+
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;

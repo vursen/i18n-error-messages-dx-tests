@@ -1,4 +1,4 @@
-package org.vaadin.myapp.forms;
+package org.vaadin.myapp.data;
 
 import java.time.LocalTime;
 
