@@ -1,21 +1,21 @@
 package org.vaadin.myapp;
 
-import org.vaadin.myapp.forms.ApplicationForm;
+import org.vaadin.myapp.forms.SubscriptionForm;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.router.Route;
 
-@Route
-public class MainView extends Div {
-    public MainView() {
+@Route("subscription-form")
+public class SubscriptionFormView extends Div {
+    public SubscriptionFormView() {
         setWidth("400px");
         getStyle().set("margin", "var(--lumo-space-m) auto");
 
-        H1 h1 = new H1("Application form");
+        H1 h1 = new H1("Subscription Form");
         h1.getStyle().set("margin-bottom", "var(--lumo-space-l)");
 
-        ApplicationForm applicationForm = new ApplicationForm();
-        add(h1, applicationForm);
+        SubscriptionForm subscriptionForm = new SubscriptionForm();
+        add(h1, subscriptionForm);
     }
 }
