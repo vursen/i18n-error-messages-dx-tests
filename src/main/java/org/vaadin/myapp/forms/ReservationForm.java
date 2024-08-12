@@ -19,15 +19,28 @@ public class ReservationForm extends FormLayout {
     public ReservationForm() {
         setResponsiveSteps(new ResponsiveStep("0", 1));
 
+        // 1. Add the following error messages for "Email":
+        // - "This field is required" when the value is empty.
+        // - "Please enter a valid email address" when the value doesn't match the email format.
+        // - "This email cannot be used. Please try another one" when the email equals john@vaadin.com.
         EmailField emailField = new EmailField("Email");
         binder.forField(emailField).bind("email");
 
+        // 2. Add the following error messages for "Number of guests":
+        // - "This field is required" when the value is empty.
+        // - "Please enter a valid number" when the value is unparsable, e.g. "1-".
+        // - "Number of guests must be 1 or greater" when the value is less than 1.
         IntegerField numberOfGuestsField = new IntegerField("Number of guests");
         binder.forField(numberOfGuestsField).bind("numberOfGuests");
 
+        // 3. Add the following error messages for "Reservation time":
+        // - "This field is required" when the value is empty.
+        // - "Please enter a valid time" when the value is unparsable, e.g. "foobar"
         TimePicker reservationTimeField = new TimePicker("Reservation time");
         binder.forField(reservationTimeField).bind("reservationTime");
 
+        // 4. Add the following error messages for "I agree to the terms and conditions":
+        // - "You must agree" when the checkbox isn't selected.
         Checkbox agreeField = new Checkbox("I agree to the terms and conditions");
         agreeField.getStyle().set("padding-top", "var(--lumo-space-s)");
         binder.forField(agreeField).bind("agreed");
